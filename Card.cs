@@ -28,22 +28,49 @@
 
     internal class Card
     {
-        private string rank;
-        private char suit;
+        private Rank rank;
+        private Suit suit;
         private bool selected = false;
+        private readonly string name;
 
         public Card(Rank _rank, Suit _suit)
         {
-            rank = Convert.RankToSymbol(_rank);
-            suit = Convert.SuitToSymbol(_suit);
+            rank = _rank;
+            suit = _suit;
+            name = ParseName();
+        }
+
+        private string ParseName()
+        {
+            string name;
+            string rankName = rank.ToString();
+            rankName = char.ToUpper(rankName[0]) + rankName.Substring(1);
+            string suitName = suit.ToString();
+            suitName = char.ToUpper(suitName[0]) + suitName.Substring(1);
+            suitName = suitName + "s";
+            name = rankName + " of " + suitName;
+            return name;            
         }
 
         public string GetRank()
         {
+            return Convert.RankToSymbol(rank);
+        }
+        public Rank GetRankEnum()
+        {
             return rank;
+        }
+        public string GetName()
+        {
+            return name;
         }
 
         public char GetSuit()
+        {
+            return Convert.SuitToSymbol(suit);
+        }
+        
+        public Suit GetSuitEnum()
         {
             return suit;
         }

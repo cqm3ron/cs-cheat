@@ -11,7 +11,8 @@ namespace Cheat
             Deck deck = new Deck(true);
             deck.Shuffle();
             Deck[] playerDecks = deck.Deal(2);
-            Console.ReadKey();
+            //Console.ReadKey();
+
             Display.ScrollMenu(playerDecks[0]);
         }
     }

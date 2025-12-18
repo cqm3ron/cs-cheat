@@ -10,7 +10,7 @@ namespace Cheat
     internal class Deck
     {
         private static readonly Random rand = new Random();
-        private readonly List<Card> cards = new List<Card>();
+        private List<Card> cards = new List<Card>();
 
         public Deck(bool fill = false)
         {
@@ -30,6 +30,22 @@ namespace Cheat
         }
 
         public int Length { get { return cards.Count; } }
+
+        public int SelectedCards
+        {
+            get
+            {
+                int selectedCount = 0;
+                foreach (Card card in cards)
+                {
+                    if (card.GetSelected())
+                    {
+                        selectedCount++;
+                    }
+                }
+                return selectedCount;
+            }
+        }
 
         public void Shuffle() // uses Fisher-Yates shuffle
         {
@@ -71,6 +87,11 @@ namespace Cheat
                 }
             }
 
+            foreach (Deck deck in playerDecks)
+            {
+                deck.SortHand();
+            }
+
             return playerDecks;
         }
 
@@ -88,5 +109,11 @@ namespace Cheat
             }
             return _cards;
         }
+
+        public void SortHand()
+        {
+            cards = cards.OrderBy(c => c.GetRankEnum()).ThenBy(c => c.GetSuitEnum()).ToList();
+        }
+
     }
 }

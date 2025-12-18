@@ -21,11 +21,70 @@
             }
         }
 
-        public static void Card(Card card, bool selected = false)
+        public static void ShortEmptyCard()
+        {
+            Console.Write("           ");
+            NextLine();
+            Console.Write("           ");
+            NextLine();
+            Console.Write("           ");
+            NextLine();
+            Console.Write("           ");
+            NextLine();
+            Console.Write("           ");
+            NextLine();
+            Console.Write("           ");
+            NextLine();
+            Console.Write("           ");
+            NextLine();
+            NextCard();
+            Console.ResetColor();
+        }
+        public static void ShortCard(Card card)
+        {
+                string rightRank, leftRank;
+                string rank = card.GetRank();
+                char suit = card.GetSuit();
+                bool selected = card.GetSelected();    
+
+
+                if (rank == "10")
+                {
+                    rightRank = rank;
+                    leftRank = rank;
+                }
+                else
+                {
+                    rightRank = rank + " ";
+                    leftRank = " " + rank;
+                }
+                if (selected)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                Console.Write("           ");
+                NextLine();
+                Console.Write("┌─────────┐");
+                NextLine();
+                Console.Write($"│{leftRank}       │");
+                NextLine();
+                Console.Write($"│    {suit}    │");
+                NextLine();
+                Console.Write($"│       {rightRank}│");
+                NextLine();
+                Console.Write("└─────────┘");
+                NextLine();
+                Console.Write("           ");
+                NextLine();
+                NextCard();
+                Console.ResetColor();
+        }
+        public static void Card(Card card)
         {
             string rightRank, leftRank;
             string rank = card.GetRank();
             char suit = card.GetSuit();
+            bool selected = card.GetSelected();
 
             if (rank == "10")
             {
@@ -79,68 +138,102 @@
 
         public static void ScrollMenu(Deck deck)
         {
-            int hovered = 0;
-            List<int> selected = new List<int>();
-            int currentStart = 0;
-            int currentEnd;
-            ConsoleKeyInfo keyInfo;
-
+            int current = 0;
+            ConsoleKeyInfo inputKey;
+            Card selectedCard;
+            
             while (true)
             {
-                // Update cards per line in case the console was resized.
-                CardsPerLine = SetCardsPerLine();
-                if (CardsPerLine <= 0)
-                {
-                    CardsPerLine = 1;
-                }
+                Console.Clear();
+                Console.SetCursorPosition(0, 0);
+                BigCard(deck, current);
+                Console.SetCursorPosition(Console.GetCursorPosition().Left + 7, Console.GetCursorPosition().Top);
+                DisplaySelectedCards(deck);
 
-                currentEnd = Math.Min(currentStart + CardsPerLine, deck.Length);
+                inputKey = Console.ReadKey(true);
 
-                if (currentStart >= deck.Length) // If start is out of range, move to last page start.
+                if (inputKey.Key == ConsoleKey.RightArrow)
                 {
-                    if (deck.Length == 0)
+                    if (current < deck.Length - 1)
                     {
-                        currentStart = 0;
-                        currentEnd = 0;
+                        current++;
+                    }
+                }
+                else if (inputKey.Key == ConsoleKey.LeftArrow)
+                {
+                    if (current > 0)
+                    {
+                        current--;
+                    }
+                }
+                else if (inputKey.Key == ConsoleKey.Enter || inputKey.Key == ConsoleKey.Spacebar)
+                {
+                    selectedCard = deck.GetCard(current);
+                    if (selectedCard.GetSelected())
+                    {
+                        selectedCard.DeSelect();
                     }
                     else
                     {
-                        int pages = (deck.Length + CardsPerLine - 1) / CardsPerLine; // ceiling
-                        currentStart = Math.Max(0, (pages - 1) * CardsPerLine);
-                        currentEnd = deck.Length;
+                        selectedCard.Select();
                     }
                 }
-
-                if (currentStart < 0)
-                {
-                    currentStart = 0;
-                    currentEnd = Math.Min(CardsPerLine, deck.Length);
-                }
-
-                Console.Clear();
-                Display.Deck(deck, currentStart, currentEnd);
-
-                keyInfo = Console.ReadKey(true);
-
-                if (keyInfo.Key == ConsoleKey.RightArrow)
-                {
-                    // Go to next page if possible
-                    if (currentStart + CardsPerLine < deck.Length)
-                    {
-                        currentStart += CardsPerLine;
-                    }
-                }
-                else if (keyInfo.Key == ConsoleKey.LeftArrow)
-                {
-                    // Go to previous page if possible
-                    currentStart = Math.Max(0, currentStart - CardsPerLine);
-                }
-                else if (keyInfo.Key == ConsoleKey.Escape)
-                {
-                    break;
-                }
-
             }
+        }
+
+        public static void BigCard(Deck deck, int card)
+        {
+            Card middleCard = deck.GetCard(card);
+            Card previousCard = null, nextCard = null;
+
+            if (card > 0)
+            {
+                previousCard = deck.GetCard(card - 1);
+            }
+            if (card < deck.Length - 1)
+            {
+               nextCard = deck.GetCard(card + 1);
+            }
+            if (previousCard != null)
+            {
+                Display.ShortCard(previousCard);
+            }
+            else
+            {
+                Display.ShortEmptyCard();
+            }
+            if (nextCard != null)
+            {
+                Console.SetCursorPosition(Console.GetCursorPosition().Left + (CardWidth / 2) - 4, Console.GetCursorPosition().Top);
+                Display.ShortCard(nextCard);
+            }
+            else
+            {
+                Console.SetCursorPosition(Console.GetCursorPosition().Left + (CardWidth / 2) - 4, Console.GetCursorPosition().Top);
+                Display.ShortEmptyCard();
+            }
+            Console.SetCursorPosition(Console.GetCursorPosition().Left - (2 * CardWidth) + (CardWidth / 2), Console.GetCursorPosition().Top);
+            Display.Card(middleCard);
+        }
+
+        public static void DisplaySelectedCards(Deck deck)
+        {
+            Console.Write("Selected Cards:");
+            Console.SetCursorPosition(Console.GetCursorPosition().Left - 15, Console.GetCursorPosition().Top + 1); // "Selected Cards" is 15 chars
+            List<Card> selectedCards = new List<Card>();
+            foreach (Card card in deck.GetCards())
+            {
+                if (card.GetSelected())
+                {
+                    selectedCards.Add(card);
+                }
+            }
+            foreach (Card card in selectedCards)
+            {
+                Console.Write(card.GetName());
+                Console.SetCursorPosition(Console.GetCursorPosition().Left - card.GetName().Length, Console.GetCursorPosition().Top + 1);
+            }
+
         }
     }
 }
