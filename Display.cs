@@ -42,42 +42,42 @@
         }
         public static void ShortCard(Card card)
         {
-                string rightRank, leftRank;
-                string rank = card.GetRank();
-                char suit = card.GetSuit();
-                bool selected = card.GetSelected();    
+            string rightRank, leftRank;
+            string rank = card.GetRank();
+            char suit = card.GetSuit();
+            bool selected = card.GetSelected();    
 
 
-                if (rank == "10")
-                {
-                    rightRank = rank;
-                    leftRank = rank;
-                }
-                else
-                {
-                    rightRank = rank + " ";
-                    leftRank = " " + rank;
-                }
-                if (selected)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                }
-                Console.Write("           ");
-                NextLine();
-                Console.Write("┌─────────┐");
-                NextLine();
-                Console.Write($"│{leftRank}       │");
-                NextLine();
-                Console.Write($"│    {suit}    │");
-                NextLine();
-                Console.Write($"│       {rightRank}│");
-                NextLine();
-                Console.Write("└─────────┘");
-                NextLine();
-                Console.Write("           ");
-                NextLine();
-                NextCard();
-                Console.ResetColor();
+            if (rank == "10")
+            {
+                rightRank = rank;
+                leftRank = rank;
+            }
+            else
+            {
+                rightRank = rank + " ";
+                leftRank = " " + rank;
+            }
+            if (selected)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            Console.Write("           ");
+            NextLine();
+            Console.Write("┌─────────┐");
+            NextLine();
+            Console.Write($"│{leftRank}       │");
+            NextLine();
+            Console.Write($"│    {suit}    │");
+            NextLine();
+            Console.Write($"│       {rightRank}│");
+            NextLine();
+            Console.Write("└─────────┘");
+            NextLine();
+            Console.Write("           ");
+            NextLine();
+            NextCard();
+            Console.ResetColor();
         }
         public static void Card(Card card)
         {
@@ -166,7 +166,7 @@
                         current--;
                     }
                 }
-                else if (inputKey.Key == ConsoleKey.Enter || inputKey.Key == ConsoleKey.Spacebar)
+                else if (inputKey.Key == ConsoleKey.Spacebar)
                 {
                     selectedCard = deck.GetCard(current);
                     if (selectedCard.GetSelected())
@@ -178,6 +178,11 @@
                         selectedCard.Select();
                     }
                 }
+                else if (inputKey.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+
             }
         }
 
