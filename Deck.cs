@@ -12,15 +12,23 @@ namespace Cheat
         private static readonly Random rand = new Random();
         private List<Card> cards = new List<Card>();
         private int selectedCardCount;
+        private int deckCount;
+
+        public int GetNumberOfDecks()
+        {
+            return deckCount;
+        }
 
         public void SetSelectedCardCount(int value)
         {
             selectedCardCount = value;
         }
+
         public int GetSelectedCardCount()
         {
             return selectedCardCount;
         }
+
         public void ResetSelectedCards()
         {
             foreach (Card card in cards)
@@ -38,16 +46,24 @@ namespace Cheat
             if (fill)
             {
                 cards = Card.GenerateDeck();
+                deckCount = 1;
             }
             else
             {
                 cards = new List<Card>();
+                deckCount = 0;
             }
         }
 
         public Deck (Deck deck)
         {
             cards = deck.cards;
+        }
+
+        public void AddDeck()
+        {
+            cards.AddRange(Card.GenerateDeck());
+            deckCount++;
         }
 
         public int Length { get { return cards.Count; } }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cheat")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9dadb7a41667be6e0b0a50c6af9ecf82462f196c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1fde1fff6ba0fcf2f1af5d3637feeef714958bb6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cheat")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cheat")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

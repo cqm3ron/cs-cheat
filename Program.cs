@@ -6,12 +6,28 @@ namespace Cheat
     {
         static void Main(string[] args)
         {
+            /*
+             * "https://en.wikipedia.org/wiki/Cheat_(game)"
+             * helpful (has rules and that)
+             */
+
+
             Console.OutputEncoding = Encoding.UTF8; // remove after testing finished
             //Settings.Initialise();
+            int playerCount = 5; // add procedure to settings.cs to get & parse playercount
+            int extraDecksNeeded = 1;
+
+            extraDecksNeeded = (int)Math.Ceiling((playerCount - 4f) / 4f);
+            
             Deck deck = new Deck(true);
+
+            for (int i = 0; i < extraDecksNeeded; i++) deck.AddDeck(); // Adds more decks if more than 4 players
+
             deck.Shuffle();
-            Deck[] playerDecks = deck.Deal(2);
-            //Console.ReadKey();
+            Deck[] playerDecks = deck.Deal(playerCount);
+            
+            
+            Console.ReadKey();
 
             Game.HandleTurn(playerDecks, deck);
 

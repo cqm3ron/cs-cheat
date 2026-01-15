@@ -10,9 +10,15 @@ namespace Cheat
     {
         public static void HandleTurn(Deck[] playerDecks, Deck discardDeck)
         {
-            Display.ScrollMenu(playerDecks[0]);
+            int currentPlayer = 0;
 
-            playerDecks[0].ResetSelectedCards();
+
+            while (true) // add end condition sometime idk
+            {
+                Display.ScrollMenu(playerDecks[currentPlayer]);
+                playerDecks[0].ResetSelectedCards();
+
+            }
         }
 
     }
