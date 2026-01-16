@@ -4,7 +4,7 @@
     {
         public static char SuitToSymbol(Suit suit)
         {
-            if (Settings.useUnicode)
+            if (Settings.Current.useUnicode)
             {
                 switch (suit)
                 {
@@ -67,6 +67,6 @@
                 default:
                     return "?";
             }
-        } 
+        }
     }
 }

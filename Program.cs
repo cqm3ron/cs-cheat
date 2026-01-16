@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Cheat
+﻿namespace Cheat
 {
     internal class Program
     {
@@ -12,24 +10,21 @@ namespace Cheat
              */
 
 
-            Console.OutputEncoding = Encoding.UTF8; // remove after testing finished
-            //Settings.Initialise();
-            int playerCount = 5; // add procedure to settings.cs to get & parse playercount
-            int extraDecksNeeded = 1;
+            NaturalLanguageParser nlp = new();
+            while (true)
+            {
+                nlp.TryParseCard(Console.ReadLine(), out Card? card);
+                Console.WriteLine(card);
+            }
 
-            extraDecksNeeded = (int)Math.Ceiling((playerCount - 4f) / 4f);
-            
-            Deck deck = new Deck(true);
 
-            for (int i = 0; i < extraDecksNeeded; i++) deck.AddDeck(); // Adds more decks if more than 4 players
-
-            deck.Shuffle();
-            Deck[] playerDecks = deck.Deal(playerCount);
-            
-            
             Console.ReadKey();
 
-            Game.HandleTurn(playerDecks, deck);
+            //Settings settings = new();
+            Settings defaultSettings = new(true, 2);
+
+            Game game = new(defaultSettings); // change to settings later
+            game.Play();
 
             /* if all selected cards are same rank,
              * auto-fill user input for NOT cheat

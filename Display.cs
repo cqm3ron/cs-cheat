@@ -113,7 +113,7 @@
         /// </summary>
         /// <param name="side">Specifies the side to align the card. Use "left" to align the card to the left; any other value aligns it to
         /// the right.</param>
-        
+
         private static void ShortEmptyCard(string side)
         {
             if (side == "left")
@@ -157,7 +157,7 @@
         /// <summary>
         /// Moves the console cursor to the start of the next line, offset horizontally by the width of a card.
         /// </summary>
-        
+
         private static void NextLineCard()
         {
             Console.SetCursorPosition(Console.GetCursorPosition().Left - CardWidth, Console.GetCursorPosition().Top + 1);
@@ -250,8 +250,6 @@
                     changesMade = false;
                 }
 
-                
-
             }
         }
 
@@ -273,7 +271,7 @@
             }
             if (card < deck.Length - 1)
             {
-               nextCard = deck.GetCard(card + 1);
+                nextCard = deck.GetCard(card + 1);
             }
 
             if (previousCard != null) // attempt to display the previous card

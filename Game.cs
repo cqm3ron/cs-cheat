@@ -1,25 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cheat
+﻿namespace Cheat
 {
     class Game
     {
-        public static void HandleTurn(Deck[] playerDecks, Deck discardDeck)
+        private Deck deck;
+        private int playerCount;
+        private Deck[] playerDecks;
+
+        public Game(Settings settings)
+        {
+            playerCount = settings.playerCount;
+            // Initialise Deck(s)
+            int extraDecksNeeded = 1;
+            extraDecksNeeded = (int)Math.Ceiling((playerCount - 4) / 4f);
+            deck = new(true); // generates prefilled deck
+            if (extraDecksNeeded > 0) for (int i = 0; i < extraDecksNeeded; i++) deck.AddDeck(); // Adds more decks if more than 4 players
+            deck.Shuffle();
+            playerDecks = deck.Deal(playerCount); // deals deck between players
+
+        }
+
+        public void Play()
         {
             int currentPlayer = 0;
 
-
             while (true) // add end condition sometime idk
             {
-                Display.ScrollMenu(playerDecks[currentPlayer]);
-                playerDecks[0].ResetSelectedCards();
-
+                Display.ScrollMenu(playerDecks[currentPlayer]); // display current player's deck and options
+                playerDecks[0].ResetSelectedCards(); // temporary because nothing else happens after this
             }
         }
-
     }
 }

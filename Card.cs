@@ -9,19 +9,19 @@
     }
     enum Rank : int
     {
-        ace=1,
-        two=2,
-        three=3,
-        four=4,
-        five=5,
-        six=6,
-        seven=7,
-        eight=8,
-        nine=9,
-        ten=10,
-        jack=11,
-        queen=12,
-        king=13
+        ace = 1,
+        two = 2,
+        three = 3,
+        four = 4,
+        five = 5,
+        six = 6,
+        seven = 7,
+        eight = 8,
+        nine = 9,
+        ten = 10,
+        jack = 11,
+        queen = 12,
+        king = 13
     }
 
 
@@ -48,7 +48,12 @@
             suitName = char.ToUpper(suitName[0]) + suitName.Substring(1);
             suitName = suitName + "s";
             name = rankName + " of " + suitName;
-            return name;            
+            return name;
+        }
+
+        public override string ToString()
+        {
+            return ParseName();
         }
 
         public string GetRank()
@@ -68,7 +73,7 @@
         {
             return Convert.SuitToSymbol(suit);
         }
-        
+
         public Suit GetSuitEnum()
         {
             return suit;
