@@ -9,8 +9,9 @@
              * helpful (has rules and that)
              */
 
+            NaturalLanguageParser nlp = new NaturalLanguageParser();
+            nlp.ImportMaps("D:\\Documents\\Visual Studio 2022\\Programs\\cs-cheat\\map\\rankmap.json", "D:\\Documents\\Visual Studio 2022\\Programs\\cs-cheat\\map\\suitmap.json");
 
-            NaturalLanguageParser nlp = new();
             while (true)
             {
                 nlp.TryParseCard(Console.ReadLine(), out Card? card);
