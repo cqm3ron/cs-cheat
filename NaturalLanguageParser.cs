@@ -118,13 +118,12 @@ namespace Cheat
             }
         }
 
-
         private bool TryFuzzyMatch<T>(string token, Dictionary<string, T> map, out T value)
         {
             {
                 {
                     value = default!;
-                    const int TOLERANCE = 2;
+                    const int TOLERANCE = 2; // can be made higher for more... imagination?
 
                     string? bestKey = null;
                     int bestDistance = int.MaxValue;

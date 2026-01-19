@@ -4,6 +4,7 @@
     {
         private Deck deck;
         private int playerCount;
+        private int currentPlayer = 0;
         private Deck[] playerDecks;
 
         public Game(Settings settings)
@@ -26,8 +27,14 @@
             while (true) // add end condition sometime idk
             {
                 Display.ScrollMenu(playerDecks[currentPlayer]); // display current player's deck and options
-                playerDecks[0].ResetSelectedCards(); // temporary because nothing else happens after this
+                playerDecks[currentPlayer].ResetSelectedCards(); // temporary because nothing else happens after this
+                NextPlayer();
             }
+        }
+
+        private void NextPlayer()
+        {
+            currentPlayer = (currentPlayer + 1) % playerCount;
         }
     }
 }
