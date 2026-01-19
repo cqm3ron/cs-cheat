@@ -68,9 +68,10 @@
                     return "?";
             }
         }
-        public static T StringToT<T>(string input) where T : struct, Enum
+        public static T StringToT<T>(string input) where T : struct, Enum // rename to StringToEnum for clarity
         {
             return Enum.Parse<T>(input, true);
         }
     }
 }
+
