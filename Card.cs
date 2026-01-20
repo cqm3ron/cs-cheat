@@ -102,7 +102,7 @@
 
         public static List<Card> GenerateDeck()
         {
-            List<Card> cards = new List<Card>();
+            List<Card> cards = [];
             for (int rank = 1; rank <= 13; rank++)
             {
                 cards.Add(new Card((Rank)rank, Suit.heart));

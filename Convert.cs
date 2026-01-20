@@ -4,7 +4,7 @@
     {
         public static char SuitToSymbol(Suit suit)
         {
-            if (Settings.Current.useUnicode)
+            if (Settings.Current.useUnicode) // i dont like this "current" system, please fix :> 
             {
                 switch (suit)
                 {
@@ -34,6 +34,7 @@
             }
             return '?';
         }
+
         public static string RankToSymbol(Rank rank)
         {
             switch (rank)

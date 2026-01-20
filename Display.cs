@@ -210,7 +210,7 @@
 
                 if (inputKey.Key == ConsoleKey.RightArrow)
                 {
-                    if (current < deck.Length - 1)
+                    if (current < deck.Count - 1)
                     {
                         current++;
                         changesMade = true;
@@ -269,7 +269,7 @@
             {
                 previousCard = deck.GetCard(card - 1);
             }
-            if (card < deck.Length - 1)
+            if (card < deck.Count - 1)
             {
                 nextCard = deck.GetCard(card + 1);
             }
