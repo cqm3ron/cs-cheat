@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Cheat
 {
@@ -28,7 +29,17 @@ namespace Cheat
         private static Dictionary<string, TEnum> ImportMap<TEnum>(string path) where TEnum : struct, Enum
         {
             Dictionary<string, TEnum> map = [];
-            var jsonMap = File.ReadAllText(path);
+            string jsonMap = null;
+
+            if (File.Exists(path))
+            {
+                jsonMap = File.ReadAllText(path);
+            }
+            else
+            {
+                throw new FileNotFoundException("Invalid file path", path);
+            }
+
             var data = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(jsonMap)!;
             
 
@@ -56,6 +67,12 @@ namespace Cheat
             };
 
             var json = JsonSerializer.Serialize(grouped, options);
+
+            if (!File.Exists(path))
+            {
+                File.Create(path);
+            }
+
             File.WriteAllText(path, json);
         } // export map
 
